@@ -11,21 +11,15 @@
     </head>
     <body>
         <?php
-            //Permet de veifier s'il y pas d'erreur
-            try
-            {
-                //Connection a la BD
-                $bdd = new PDO('mysql:host=localhost;dbname=articleblog', 'root', 'GetBackers');    
-            }
-            catch (Exception $e)
-            {
-                die('Erreur: ' . $e->getMessage());
-            }
-            
             echo "<h1>Partie Publique</h1>";
-            echo "<a href=\"admin.php\">admin?</a>";
+            echo "<a href=\"authadmin.php\">admin?</a><br/>";
+            echo "<a href=\"inscrip.php\">s'inscrire?</a><br/>";
             
-            $a = new pagination(5, $bdd);
+            $a = new pagination(5);
+            
+            echo "Par thème: ";
+            $a->choix();            
+
             $a->pagin();
         ?>
     </body>

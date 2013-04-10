@@ -1,17 +1,9 @@
 <?php
-    include 'article.php';
-    //Permet de veifier s'il y pas d'erreur
-    try
-    {
-        //Connection a la BD
-        $bdd = new PDO('mysql:host=localhost;dbname=articleblog', 'root', 'GetBackers');    
-    }
-    catch (Exception $e)
-    {
-        die('Erreur: ' . $e->getMessage());
-    }
+    include 'liste.php';
     
-    $a = new article($bdd);
+    $bdd = new PDO('mysql:host='.DB_HOST.';dbname='.DB_BDD, DB_LOGIN, DB_PASS);
+    
+    $a = new liste();
     
     $sql="SELECT * FROM article WHERE id={$_GET["id"]}";
     $req = $bdd->query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.  mysql_error());

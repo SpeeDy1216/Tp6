@@ -10,37 +10,33 @@
  * @copyright (c) 2013, Irfann Karimjy
  */
 
+require_once ('configuration.php');
+require_once ('article.php');
+
 class pagination {
 
     private $nbA;
     private $bdd;
     
     /**
-     * Constructeur magique: initialisation des variables.
+     * Constructeur magique: initialisation des variables: connexion à la base de donnée.
      * 
      * @param int $nbA: Le nombre d'article
-     * @param string $bdd: Connection de la BD
      */
-    function __construct($nbA, $bdd) {
+    function __construct($nbA) {
+        try
+        {
+            //Connection a la BD
+            $bdd = new PDO('mysql:host='.DB_HOST.';dbname='.DB_BDD, DB_LOGIN, DB_PASS);    
+        }
+        catch (Exception $e)
+        {
+            die('Erreur: ' . $e->getMessage());
+        }
         $this->nbA = $nbA;
         $this->bdd = $bdd;
     }
 
-    public function getNbA() {
-        return $this->nbA;
-    }
-
-    public function setNbA($nbA) {
-        $this->nbA = $nbA;
-    }
-    
-    public function getBdd() {
-        return $this->bdd;
-    }
-
-    public function setBdd($bdd) {
-        $this->bdd = $bdd;
-    }
 
     /**
      * Fonction pagin: Permet la pagination, le nombre d'article est définie par l'utilisateur
@@ -69,24 +65,48 @@ class pagination {
         $nbArticle = $data["nbArticle"];
         $nbPage = ceil($nbArticle / $articleParPage);
 
-        $sql = "SELECT * FROM article, themes WHERE article.id_theme = themes.id_themes ORDER BY date LIMIT $page,$articleParPage";
+        $sql = "SELECT * FROM article, themes WHERE article.id_theme = themes.id_themes ORDER BY date DESC LIMIT $page,$articleParPage";
         $req = $this->bdd->query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.  mysql_error());
-
-        while($data = $req->fetch())
-        {
-            echo "<br />";
-            echo "<p>{$data["titre"]} <br/> ";
-            echo "{$data["auteur"]} --- ";
-            echo "{$data["date"]} <br/>";
-            echo "{$data["texte"]} <br/>";
-            echo "{$data["nom"]} <br/>";
-            echo "</p>";
-        }
-       
+        
+        $a = new article();
+        $a->afficher($req);
+        
 
        for($i=1;$i<=$nbPage;$i++){
            echo "<a href=\"index.php?p=$i\">$i</a>/";
        }
+    }
+    
+    public function choix(){
+        ?>
+            <form method="post">
+            <select name="theme">
+                <?php
+                    $sql = "SELECT * FROM themes";
+                    $req = $this->bdd->query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.  mysql_error());
+                    
+                    while($data = $req->fetch()){
+                      echo "<option name={$data["id_themes"]} value={$data["id_themes"]}>{$data["nom"]}</option>";
+                    }
+                ?>
+            </select>
+                <input name="cate" type='submit' value='valider' onClick="<?php $this->selecte(); ?>">
+            </form>
+            <?php if(isset($_POST['cate'])) {
+                $this->selecte();
+            }?>
+       <?php
+    }
+ 
+    public function selecte(){
+        if(!empty($_POST['theme'])){
+            extract($_POST);
+            $sql = "SELECT * FROM article, themes WHERE article.id_theme={$theme} AND article.id_theme = themes.id_themes";
+            $req = $this->bdd->query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.  mysql_error());
+            
+            $a = new article();
+            $a->afficher($req);
+        }
     }
 }
 

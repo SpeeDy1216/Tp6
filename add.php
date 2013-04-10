@@ -1,21 +1,13 @@
 <?php
-    include 'article.php';
-    //Permet de veifier s'il y pas d'erreur
-    try
-    {
-        //Connection a la BD
-        $bdd = new PDO('mysql:host=localhost;dbname=articleblog', 'root', 'GetBackers');    
-    }
-    catch (Exception $e)
-    {
-        die('Erreur: ' . $e->getMessage());
-    }
-
-    $a = new article($bdd);
+    include 'liste.php';
+    
+    $bdd = new PDO('mysql:host='.DB_HOST.';dbname='.DB_BDD, DB_LOGIN, DB_PASS);
+    
+    $a = new liste();
 ?>
 
     <form method="post" action="<?php $a->add(); ?> ">
-        <input name ="id" type="hidden" value=""/>
+        
         Titre :<input type="text" name="titre" value=""/>
         Auteur :<input type="text" name="auteur" value=""/><br/>
         Contenu :<textarea name ="texte" style="width: 100%;height: 150px;"></textarea><br />
@@ -29,5 +21,7 @@
                       } 
                 ?>
                </select>
-        <input type="submit" value="Envoyer" >
+        <input type="submit" value="Envoyer" ><br/>
     </form>
+   
+<a href="admin.php">Retour à la page précédente</a>
