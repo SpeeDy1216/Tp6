@@ -77,6 +77,9 @@ class pagination {
        }
     }
     
+    /**
+     * Fonction choix permet de choisir un theme et d'afficher les articles de ce theme
+     */
     public function choix(){
         ?>
             <form method="post">

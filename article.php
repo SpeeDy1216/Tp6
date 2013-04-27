@@ -50,7 +50,9 @@ require_once ('configuration.php');
         }
         
         
-        
+        /**
+         * Fonction addTheme permet d'ajouter un theme
+         */
         public function addTheme(){
             if(!empty($_POST["add"])){
                 extract($_POST);
@@ -61,6 +63,9 @@ require_once ('configuration.php');
             }
         }
         
+        /**
+         * Fonction suppTheme permet de suppimer un theme
+         */
         public function suppTheme(){
             if(!empty($_POST["supp"])){
                 extract($_POST);

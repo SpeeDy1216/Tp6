@@ -1,4 +1,7 @@
 <?php
+/**
+ * ADMIN.PHP permet d'afficher les articles pour les admins
+ */
     include 'configuration.php';
 
     try

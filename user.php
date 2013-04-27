@@ -32,6 +32,9 @@ class user {
         $this->bdd = $bdd;
     }
     
+    /**
+     * Fonction creer permet d'ajouter un utilisateur a la base de donnée
+     */
     public function creer(){
         if(!empty($_POST)){
             extract($_POST);
@@ -44,6 +47,9 @@ class user {
         }
     }
     
+    /**
+     * Fonction auth permet de s'authentifier
+     */
     public function auth(){
         if(!empty($_POST)){
             extract($_POST);

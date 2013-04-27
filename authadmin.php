@@ -1,4 +1,7 @@
 <?php
+/**
+ * AUTHADMIN.PHP permet d'afficher un formulaire pour se connecter en tant qu'admin
+ */
     include 'user.php';
 
     $user = new user();

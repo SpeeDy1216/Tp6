@@ -1,4 +1,7 @@
 <?php
+/**
+ * EDIT.PHP permet d'editer un article
+ */
     include 'liste.php';
     
     $bdd = new PDO('mysql:host='.DB_HOST.';dbname='.DB_BDD, DB_LOGIN, DB_PASS);

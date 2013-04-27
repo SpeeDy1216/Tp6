@@ -33,14 +33,6 @@ class liste {
 
         $this->bdd = $bdd;
     }
-
-    public function getBdd() {
-        return $this->bdd;
-    }
-
-    public function setBdd($bdd) {
-        $this->bdd = $bdd;
-    }
     
     /**
     * Fonction add: permet d'ajouter un article

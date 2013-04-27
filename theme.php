@@ -1,5 +1,7 @@
 <?php
-
+    /**
+     * THEME.PHP permet d'ajouter ou supprimer un theme
+     */
     include 'article.php';
     
     $bdd = new PDO('mysql:host='.DB_HOST.';dbname='.DB_BDD, DB_LOGIN, DB_PASS);

@@ -1,4 +1,7 @@
 <?php
+/**
+ * INSCRIP.PHP permet de s'inscrire
+ */
     include 'user.php';
 
     $user = new user();
