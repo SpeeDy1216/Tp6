@@ -40,11 +40,11 @@ require_once ('configuration.php');
             while($data = $req->fetch())
             {
                 echo "<br />";
-                echo "<p>{$data["titre"]} <br/> ";
-                echo "{$data["auteur"]} --- ";
-                echo date('d/m/Y',strtotime($data["date"]))."<br/>";
-                echo "{$data["texte"]} <br/>";
-                echo "{$data["nom"]} <br/>";
+                echo "<p>Titre: {$data["titre"]} <br/> ";
+                echo "Auteur: {$data["auteur"]} --- ";
+                echo "date: ".date('d/m/Y',strtotime($data["date"]))."<br/>";
+                echo "Texte: {$data["texte"]} <br/>";
+                echo "Theme: {$data["nom"]} <br/>";
                 echo "</p>";
             }
         }
